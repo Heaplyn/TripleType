@@ -11,20 +11,15 @@ Using a 64-bit integer for the exponent, this class supports numbers up to $10^{
 
 ## How to Compile & Run
 
-To compile the project and link your source files, run the following commands in your PowerShell/CMD terminal:
+To compile the project and link your source files, run the following commands in your PowerShell/CMD terminal inside this directory:
 
-### 1. Navigate to the Source Folder
-```powershell
-cd src
-```
-
-### 2. Compile the Files
+### 1. Compile the Files
 Use `g++` to compile `main.cpp` and `triple.cpp` together:
 ```powershell
 g++ main.cpp layer1/triple/triple.cpp -o main.exe
 ```
 
-### 3. Run the Program
+### 2. Run the Program
 ```powershell
 .\main.exe
 ```

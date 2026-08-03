@@ -20,6 +20,11 @@ static void come_correct(double& val) {
 static void parse_triple(triple* object) {
     double currentMantissa = object->getMantissa();
     double newExponent = log10(currentMantissa);
+    if (currentMantissa == 0.0) {
+        object->mantissa = 0.0;
+        object->exponent = 0.0;
+        return;
+    }
     object->exponent += floor(newExponent);
     object->mantissa = fmod(currentMantissa, 10.0);
 }
@@ -32,21 +37,6 @@ triple operation( triple& a, triple& b, function<double(double, double)>& op) {
     return result;
 }
 
-double triple::getMantissa() {
-    come_correct(mantissa);
-    return mantissa;
-}
-
-double triple::getExponent() {
-    come_correct(exponent);
-    /*
-    if (abs(fmod(exponent, 1.0)) < 0.0001) {
-        exponent = round(exponent);
-        return exponent;
-    }
-    */
-    return floor(exponent);
-}
 
 ostream& operator<<(ostream& os, triple& obj) {
     os << obj.toString();
@@ -65,6 +55,8 @@ triple triple::operator+(triple& other) {
 
         double adjustedMantissa = other.getMantissa() * pow(10, -exponentDifference);
         newMantissa = this->getMantissa() + adjustedMantissa;
+    } else {
+        newMantissa = this->getMantissa() + other.getMantissa();
     }
     triple result(newMantissa, newExponent);
         return result;
@@ -148,4 +140,10 @@ string triple::toString() {
         }
     }
     return newNum;
+}
+
+triple::triple(double num) {
+    mantissa = num;
+    exponent = 0.0;
+    parse_triple(this);
 }

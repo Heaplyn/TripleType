@@ -15,13 +15,18 @@ using namespace std;
         public:
             double mantissa = 0.0;
             double exponent = 0.0;
+            triple(double num);
             triple(double mantissa,double exponent): mantissa(mantissa), exponent(exponent) {}
             triple operator+( triple& other);   
             triple operator-( triple& other);
             triple operator*(triple& other);
             friend ostream& operator<<(ostream& os, triple& obj);
-            double getMantissa()  ;
-            double getExponent()  ;
+            double getMantissa() const {
+                return mantissa;
+            };
+            double getExponent() const {
+                return exponent;
+            };
             string toString();
 
     };
